@@ -1,0 +1,88 @@
+﻿@model DapperCRUD.Models.Employee
+
+@{
+    ViewBag.Title = "UserInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>User Info</h2>
+
+<div>
+    
+   <div class="row">
+       <div class="col-sm-4">
+           User ProFile
+           @if (Model.UserProfile != null)
+           {
+               <img src="~/Content/Uploads/@Model.UserProfile" style="height:50px;width:50px" class="img img-responsive img-thumbnail" alt="Alternate Text" />
+           }
+           <br />
+           <a onclick="location.href='@Url.Action("Update", "Home", new { Rid = Model.userid })'"> Update Profile</a>
+
+       </div>
+       <div class="col-sm-6">
+           <dl class="dl-horizontal">
+               <dt>
+                   @Html.DisplayNameFor(model => model.userid)
+               </dt>
+
+               <dd>
+                   @Html.DisplayFor(model => model.userid)
+               </dd>
+
+               <dt>
+                   @Html.DisplayNameFor(model => model.UserName)
+               </dt>
+
+               <dd>
+                   @Html.DisplayFor(model => model.UserName)
+               </dd>
+
+               <dt>
+                   @Html.DisplayNameFor(model => model.FathName)
+               </dt>
+
+               <dd>
+                   @Html.DisplayFor(model => model.FathName)
+               </dd>
+
+               <dt>
+                   @Html.DisplayNameFor(model => model.MobileNo)
+               </dt>
+
+               <dd>
+                   @Html.DisplayFor(model => model.MobileNo)
+               </dd>
+
+               <dt>
+                   @Html.DisplayNameFor(model => model.email)
+               </dt>
+
+               <dd>
+                   @Html.DisplayFor(model => model.email)
+               </dd>
+
+               <dt>
+                   @Html.DisplayNameFor(model => model.DOB)
+               </dt>
+
+               <dd>
+                   @Html.DisplayFor(model => model.DOB)
+               </dd>
+
+             
+               <dt>
+                   @Html.DisplayNameFor(model => model.UserPassword)
+               </dt>
+
+               <dd>
+                   @Html.DisplayFor(model => model.UserPassword)
+               </dd>
+
+
+
+           </dl>
+       </div>
+   </div>
+</div>
+

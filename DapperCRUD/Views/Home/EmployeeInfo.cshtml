@@ -1,0 +1,203 @@
+﻿@model DapperCRUD.Models.Employee
+@{
+    ViewBag.Title = "EmployeeInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var msg = TempData["msg"] ?? string.Empty;
+    var RoleCode = Session["RoleId"].ToString();
+}
+<script>
+    var msgs = "@msg";
+    var Role = "@RoleCode";
+    debugger
+    if (msgs == "1") {
+        alert("Save Successfully..?")
+    }
+    else if (msgs == "2") {
+        alert("Mobile No Exists..?")
+    }
+    else if (msgs=="3") {
+        alert("Update Successfully...?")
+        debugger
+        if (Role == "1001") {
+            window.location.href = 'Home/UserInfo';
+        }
+    }
+     function Delete(sid)
+    {
+        var result=confirm("DO U Want Delete are not :");
+        if(result)
+        {
+            $.ajax(
+                {
+                    url: "@Url.Action("Delete","Home")",
+                    type: 'post',
+                    datatype: 'json',
+                    data: { sid: sid },
+                    asycs: false,
+                    success:function(isConfirm)
+                        {
+                        alert('Your recored detele here :'); location.reload();
+                    }
+
+
+                });
+        }
+    }
+</script>
+
+<h2>All User Info</h2>
+
+@using (Html.BeginForm("EmployeeInfo", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.HiddenFor(model => model.userid)
+        @Html.HiddenFor(m => m.UserProfile, new { @id = "UserProfile" })
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FathName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FathName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FathName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @placeholder = "YYYY-MM-DD" } })
+                        @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserProfile, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="file" name="UserProfile" value="UserProfile" class="form-control" />
+                        @if (Model.UserProfile != null)
+                        {
+                            <img src="~/Content/Uploads/@Model.UserProfile" style="height:50px;width:50px" class="img img-responsive img-thumbnail" alt="Alternate Text" />
+                        }
+
+                        @*@Html.EditorFor(model => model.UserProfile, new { htmlAttributes = new { @class = "form-control",Type="file" } })*@
+                        @*@Html.ValidationMessageFor(model => model.UserProfile, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control", Type = "password" } })
+                        @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @if(Session["RoleId"].ToString() == "1001")
+                {
+            <div class="form-group">
+                @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.RoleId, new List<SelectListItem>
+                                       {
+                                       new SelectListItem{ Text="-Select-", Value = "" },
+                                       new SelectListItem{ Text="Admin", Value = "1001" },
+                                       new SelectListItem{ Text="User", Value = "1002" },
+                                       }, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+                }
+                
+
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <center><input type="submit" value="@ViewBag.button" name="command" class="btn btn-success" /></center>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+@if (Session["RoleId"].ToString() == "1001")
+{
+    <div class="row">
+
+        <div class="form-horizontal">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sr.</th>
+                        <th>User id</th>
+                        <th>User Name</th>
+                        <th>Father name</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>DOB</th>
+                        <th>Profile</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{var r = 0;}
+                    @foreach (var item in ViewBag.list)
+                    {
+                        <tr>
+                            <td>@(r+1)</td>
+                            <td>@item.userid</td>
+                            <td>@item.UserName</td>
+                            <td>@item.FathName</td>
+                            <td>@item.MobileNo</td>
+                            <td>@item.email</td>
+                            <td>@item.DOB</td>
+                            <td>
+                                <img src="~/Content/Uploads/@item.UserProfile" style="height:50px;width:50px" class="img img-responsive img-circle" alt="Alternate Text" />
+                            </td>
+                            <td>
+                                <a title='Update' onclick="location.href='@Url.Action("Update", "Home", new { Rid = @item.userid })'">
+                                    <span class="fa fa-edit btn-sm btn-info">Update</span>
+                                </a>
+                                <a title='Delete' onclick='Delete(@item.userid)' href="#">
+                                    <span class="fa fa-times btn-sm btn-danger">Delete</span>
+                                </a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+
+
