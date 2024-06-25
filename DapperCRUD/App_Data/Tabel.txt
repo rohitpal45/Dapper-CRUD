@@ -1,0 +1,32 @@
+﻿USE [DapperCRUD]
+GO
+
+/****** Object:  Table [dbo].[Employee]    Script Date: 26/06/2024 12.57.52 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Employee](
+	[userid] [int] IDENTITY(1001,1) NOT NULL,
+	[UserName] [nvarchar](50) NULL,
+	[FathName] [nvarchar](50) NULL,
+	[MobileNo] [char](12) NOT NULL,
+	[email] [nvarchar](50) NULL,
+	[DOB] [datetime] NULL,
+	[UserProfile] [nvarchar](50) NULL,
+	[UserPassword] [nvarchar](max) NULL,
+	[RoleId] [char](4) NOT NULL,
+ CONSTRAINT [PK__Employee__CBA1B25702ABDE44] PRIMARY KEY CLUSTERED 
+(
+	[userid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [UQ__Employee__D6D73A86F28DA500] UNIQUE NONCLUSTERED 
+(
+	[MobileNo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+

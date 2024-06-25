@@ -1,0 +1,55 @@
+﻿alter procedure Sp_EmployeeReg
+(
+@userid int,
+@UserName nvarchar(50),
+@FathName nvarchar(50),
+@MobileNo nvarchar(50),
+@email nvarchar(50),
+@DOB nvarchar(50),
+@UserProfile nvarchar(50),
+@UserPassword nvarchar(max),
+@RoleId char(4) ,
+@flag int
+)as
+begin 
+if(@flag=1)
+begin
+if not Exists(Select 1 from Employee where MobileNo=@MobileNo)
+begin 
+insert into Employee(UserName,FathName,MobileNo,email,DOB,UserProfile,UserPassword,RoleId)
+values(@UserName,@FathName,@MobileNo,@email,@DOB,@UserProfile,@UserPassword,@RoleId)
+Select 'success'Msg, userid, UserName,FathName,MobileNo,email,FORMAT(DOB,'yyyy-MM-dd')DOB,UserProfile,UserPassword,RoleId from Employee 
+end 
+else 
+Select 'Error'Msg, userid, UserName,FathName,MobileNo,email,FORMAT(DOB,'yyyy-MM-dd')DOB,UserProfile,
+UserPassword,RoleId from Employee 
+end
+if(@flag=2)
+begin
+update  Employee set 
+UserName=@UserName,
+FathName=@FathName,
+MobileNo=@MobileNo,
+email=@email,
+DOB=@DOB,
+UserProfile=@UserProfile,
+UserPassword=@UserPassword,
+RoleId=@RoleId where userid=@userid
+Select 'update'Msg, userid, UserName,FathName,MobileNo,email,DOB,UserProfile,
+UserPassword,RoleId from Employee 
+end
+if(@flag=3)
+begin
+delete from Employee  where userid=@userid
+end
+if(@flag=4)
+begin
+Select userid, UserName,FathName,MobileNo,email,FORMAT(DOB,'yyyy-MM-dd')DOB,UserProfile,
+UserPassword,RoleId from Employee 
+end
+if(@flag=5)
+begin
+Select userid, UserName,FathName,MobileNo,email,FORMAT(DOB,'yyyy-MM-dd')DOB,UserProfile,
+UserPassword,RoleId from Employee where userid=@userid
+end
+end 
