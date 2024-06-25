@@ -131,9 +131,12 @@
     </Compile>
     <Compile Include="Models\CnSetting.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Securty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\StoreProcedure.txt" />
+    <Content Include="App_Data\Tabel.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -174,7 +177,6 @@
     <Content Include="Views\Home\UserInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\Uploads\" />
   </ItemGroup>
   <ItemGroup>

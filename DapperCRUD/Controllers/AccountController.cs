@@ -23,6 +23,7 @@ namespace DapperCRUD.Controllers
         [HttpPost]
         public ActionResult Index(UserLogin M)
         {
+
             var list = Db.GetuserLogin(M).ToList();
             if (list.Count()>0)
             {

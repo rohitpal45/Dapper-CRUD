@@ -13,6 +13,7 @@ namespace DapperCRUD.Controllers
     {
         DataAccess Db = new DataAccess();
         private int procId;
+        Securty Sc = new Securty();
         [HttpGet]
         public ActionResult EmployeeInfo()
         {
@@ -21,6 +22,7 @@ namespace DapperCRUD.Controllers
             {
                 var userid = Convert.ToInt32(Request.QueryString["sid"].ToString());
                 Model = Db.GetEmpInfo(4, Model).ToList().Where(m=>m.userid== userid).FirstOrDefault();
+                Model.UserPassword = Sc.DecodeFrom64(Model.UserPassword).ToString();
                 ViewBag.button = "Update";
             }
             else
